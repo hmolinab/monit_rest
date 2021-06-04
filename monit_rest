@@ -1,0 +1,4 @@
+check process monit_rest with pidfile /var/run/monit_rest.pid
+  start program = "/usr/bin/ruby /usr/local/bin/monit_rest.rb" TIMEOUT 10 SECONDS
+  stop  program = "/bin/sh -c '/usr/bin/kill -9 `/usr/bin/cat /var/run/monit_rest.pid`'" TIMEOUT 10 SECONDS
+  if failed host 127.0.0.1 port 2813 protocol HTTP request '/Monit' for 5 cycles then restart
